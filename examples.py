@@ -46,5 +46,3 @@ def get_example_selector():
     return example_selector
 
 
-
-# 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

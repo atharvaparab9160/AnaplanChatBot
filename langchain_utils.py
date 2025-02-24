@@ -2,24 +2,16 @@ import os
 # from dotenv import load_dotenv
 #
 # load_dotenv()
+import secrets_key
+db_user = secrets_key.db_user
+db_password = secrets_key.db_password
+port = secrets_key.port
+db_host = secrets_key.db_host
+db_name = secrets_key.db_name
 
-db_user = "AnaplanChatbot_flewrollit"
-db_password = "e375971f9b738b06efe30896c9a1f414120930f2"
-port = "3307"
-db_host = "x6mxp.h.filess.io"
-db_name = "AnaplanChatbot_flewrollit"
-
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = secrets_key.openAi_API_Key
 LANGCHAIN_TRACING_V2 = "true"
-LANGCHAIN_API_KEY = "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"
-import os
-# from langchain_deepseek import ChatDeepSeek
-# os.environ["DEEPSEEK_API_KEY"] = getpass.getpass("Enter your DeepSeek API key: ")
-# os.environ[
-#     "OPENAI_API_KEY"] = "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"
-# os.environ["LANGCHAIN_TRACING_V2"] = "true"
-# os.environ[
-#     "LANGCHAIN_API_KEY"] = "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"
+LANGCHAIN_API_KEY = secrets_key.langchain_API_Key
 from langchain_community.utilities.sql_database import SQLDatabase
 from langchain.chains import create_sql_query_chain
 from langchain_openai import ChatOpenAI

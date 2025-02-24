@@ -4,10 +4,10 @@ from operator import itemgetter
 from langchain.chains.openai_tools import create_extraction_chain_pydantic
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_openai import ChatOpenAI
-import os
-os.environ[
-    "OPENAI_API_KEY"] = "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"
 
+import secrets_key
+import os
+os.environ["OPENAI_API_KEY"] = secrets_key.openAi_API_Key
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 from typing import List
 

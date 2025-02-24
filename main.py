@@ -7,16 +7,16 @@ st.set_page_config(
 
 from openai import OpenAI
 from langchain_utils import invoke_chain
-
+import secrets_key
 st.title("Anaplan Chatbot")
 
 # Set OpenAI API key from Streamlit secrets
-client = OpenAI(api_key="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")
+client = OpenAI(api_key=secrets_key.openAi_API_Key)
 
 
 # Set a default model
 if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = "gpt-3.5-turbo"
+    st.session_state["openai_model"] = "gpt-4o-mini"
 
 # Initialize chat history
 if "messages" not in st.session_state:
