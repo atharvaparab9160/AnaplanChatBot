@@ -7,7 +7,7 @@ from langchain_openai import ChatOpenAI
 
 import secrets_key
 import os
-os.environ["OPENAI_API_KEY"] = secrets_key.openAi_API_Key
+os.environ["OPENAI_API_KEY"] = st.secrets["openAi_API_Key"]
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 from typing import List
 

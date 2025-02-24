@@ -7,11 +7,10 @@ st.set_page_config(
 
 from openai import OpenAI
 from langchain_utils import invoke_chain
-import secrets_key
 st.title("Anaplan Chatbot")
 
 # Set OpenAI API key from Streamlit secrets
-client = OpenAI(api_key=secrets_key.openAi_API_Key)
+client = OpenAI(api_key=st.secrets["openAi_API_Key"])
 
 
 # Set a default model

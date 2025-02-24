@@ -2,16 +2,16 @@ import os
 # from dotenv import load_dotenv
 #
 # load_dotenv()
-import secrets_key
-db_user = secrets_key.db_user
-db_password = secrets_key.db_password
-port = secrets_key.port
-db_host = secrets_key.db_host
-db_name = secrets_key.db_name
+import streamlit as st
+db_user = st.secrets["db_user"]
+db_password = st.secrets["db_password"]
+port = st.secrets["port"]
+db_host = st.secrets["db_host"]
+db_name = st.secrets["db_name"]
 
-OPENAI_API_KEY = secrets_key.openAi_API_Key
+OPENAI_API_KEY = st.secrets["openAi_API_Key"]
 LANGCHAIN_TRACING_V2 = "true"
-LANGCHAIN_API_KEY = secrets_key.langchain_API_Key
+LANGCHAIN_API_KEY = st.secrets["langchain_API_Key"]
 from langchain_community.utilities.sql_database import SQLDatabase
 from langchain.chains import create_sql_query_chain
 from langchain_openai import ChatOpenAI
