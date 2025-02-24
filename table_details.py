@@ -5,7 +5,6 @@ from langchain.chains.openai_tools import create_extraction_chain_pydantic
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_openai import ChatOpenAI
 
-import secrets_key
 import os
 os.environ["OPENAI_API_KEY"] = st.secrets["openAi_API_Key"]
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
