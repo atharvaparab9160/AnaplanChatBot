@@ -1,27 +1,27 @@
 examples = [
     {
-        "input": "List all customers in France with a credit limit over 20,000.",
-        "query": "SELECT * FROM customers WHERE country = 'France' AND creditLimit > 20000;"
+        "input": "List all Toyota cars priced over 20,000.",
+        "query": "SELECT * FROM car_sales WHERE Brand = 'Toyota' AND Price > 20000;"
     },
     {
-        "input": "Get the highest payment amount made by any customer.",
-        "query": "SELECT MAX(amount) FROM payments;"
+        "input": "Get the highest price of any car available.",
+        "query": "SELECT MAX(Price) FROM car_sales;"
     },
     {
-        "input": "Show product details for products in the 'Motorcycles' product line.",
-        "query": "SELECT * FROM products WHERE productLine = 'Motorcycles';"
+        "input": "Show details of all crossover body type cars.",
+        "query": "SELECT * FROM car_sales WHERE Body = 'crossover';"
     },
     {
-        "input": "Retrieve the names of employees who report to employee number 1002.",
-        "query": "SELECT firstName, lastName FROM employees WHERE reportsTo = 1002;"
+        "input": "Retrieve the models of cars manufactured in the year 2016.",
+        "query": "SELECT Model FROM car_sales WHERE Year = 2016;"
     },
     {
-        "input": "List all products with a stock quantity less than 7000.",
-        "query": "SELECT productName, quantityInStock FROM products WHERE quantityInStock < 7000;"
+        "input": "List all cars with mileage less than 200,000.",
+        "query": "SELECT * FROM car_sales WHERE Mileage < 200000;"
     },
     {
-     'input':"what is price of `1968 Ford Mustang`",
-     "query": "SELECT `buyPrice`, `MSRP` FROM products  WHERE `productName` = '1968 Ford Mustang' LIMIT 1;"
+        "input": "What is the price of a 2008 Volkswagen Touareg?",
+        "query": "SELECT Price FROM car_sales WHERE Brand = 'Volkswagen' AND Model = 'Touareg' AND Year = 2008 LIMIT 1;"
     }
 ]
 
