@@ -69,7 +69,7 @@ def invoke_chain(question,messages):
         history.add_user_message(question)
         history.add_ai_message(response)
         return response
-     except:
+    except:
         return "You have reached your daily limit. Please try again tomorrow."  
     
 
