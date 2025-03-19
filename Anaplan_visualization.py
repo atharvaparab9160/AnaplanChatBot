@@ -2,12 +2,13 @@ def get_openai_response(prompt):
     from openai import OpenAI
     try:
         client = OpenAI(
-            api_key=st.secrets["openAi_API_Key_visual"],
-            base_url=st.secrets["BaseURL"]
-        )
+          api_key = st.secrets["openAi_API_Key_visual"],
+          base_url = st.secrets["BaseURL"]
+          )
 
         completion = client.chat.completions.create(
             model="Meta-Llama-3.3-70B-Instruct-Turbo",
+            #   model = "gpt-4o",
             messages=[
                 {"role": "developer", "content": "SQL Developer and a data analyst"},
                 {"role": "user", "content": prompt}
@@ -23,13 +24,9 @@ def get_openai_response(prompt):
     
     
     
-    
-
-
-def get_response(user_input,prev_messages,db,schema):
+def get_response(user_input, prev_messages, db, schema):
     import streamlit as st
-    
-    
+
     prompt = f"""
     You are an AI assistant that converts user queries into SQL queries based on the given database schema.
     
@@ -104,14 +101,12 @@ def get_response(user_input,prev_messages,db,schema):
     
     '''
 
-
-
     # import ast
     text_dict = get_openai_response(graph_prompt)
     st.write(text_dict)
     if text_dict == "Limit Ended":
         return "Limit Ended"
-    
+
     # st.write("----------------------------")
     # st.write(text_dict)
     # Convert string to dictionary
@@ -121,29 +116,29 @@ def get_response(user_input,prev_messages,db,schema):
     # print(data_dict_obj)
     # print(data_dict_obj)
 
-
-
     import pandas as pd
     import matplotlib.pyplot as plt
     import seaborn as sns
-    
+
     if data_dict_obj["possible"]:
         # Extract data
-        Normalize = min(len(data_dict_obj["data"][list(data_dict_obj["data"].keys())[0]]),len(data_dict_obj["data"][list(data_dict_obj["data"].keys())[1]]))
-        data_dict_obj["data"][list(data_dict_obj["data"].keys())[0]] = data_dict_obj["data"][list(data_dict_obj["data"].keys())[0]][0:Normalize]
-        data_dict_obj["data"][list(data_dict_obj["data"].keys())[1]] = data_dict_obj["data"][list(data_dict_obj["data"].keys())[1]][0:Normalize]
+        Normalize = min(len(data_dict_obj["data"][list(data_dict_obj["data"].keys())[
+                        0]]), len(data_dict_obj["data"][list(data_dict_obj["data"].keys())[1]]))
+        data_dict_obj["data"][list(data_dict_obj["data"].keys())[
+            0]] = data_dict_obj["data"][list(data_dict_obj["data"].keys())[0]][0:Normalize]
+        data_dict_obj["data"][list(data_dict_obj["data"].keys())[
+            1]] = data_dict_obj["data"][list(data_dict_obj["data"].keys())[1]][0:Normalize]
         # st.write(data_dict_obj["data"][list(data_dict_obj["data"].keys())[0]])
         main_data_dict = data_dict_obj["data"]
         df = pd.DataFrame(main_data_dict)
-    
+
         # Extract column names for X and Y axes
         x_data = main_data_dict[list(main_data_dict.keys())[0]]
         y_data = main_data_dict[list(main_data_dict.keys())[1]]
-        
-    
+
         # Define the visualization type
         plot_type = data_dict_obj["visualization"]
-    
+
         # Create the figure
         fig, ax = plt.subplots(figsize=(10, 5))
 
@@ -162,14 +157,17 @@ def get_response(user_input,prev_messages,db,schema):
         elif plot_type == "Box Plot":
             sns.boxplot(data=y_data, ax=ax)
         elif plot_type == "Area Plot":
-            ax.fill_between(range(len(x_data)), y_data, color='skyblue', alpha=0.5)
+            ax.fill_between(range(len(x_data)), y_data,
+                            color='skyblue', alpha=0.5)
         elif plot_type == "Stem Plot":
             ax.stem(x_data, y_data, linefmt='b-', markerfmt='bo', basefmt='r-')
         elif plot_type == "Heatmap":
             fig, ax = plt.subplots(figsize=(6, 4))
-            sns.heatmap(df.corr(), annot=True, cmap="coolwarm", fmt=".2f", ax=ax)
+            sns.heatmap(df.corr(), annot=True,
+                        cmap="coolwarm", fmt=".2f", ax=ax)
         elif plot_type == "Stack Plot":
-            ax.stackplot(range(len(x_data)), y_data, labels=x_data, colors=['b', 'g', 'r', 'c', 'm'])
+            ax.stackplot(range(len(x_data)), y_data, labels=x_data,
+                         colors=['b', 'g', 'r', 'c', 'm'])
         elif plot_type == "Error Bar Plot":
             ax.errorbar(x_data, y_data, yerr=5, fmt='o', ecolor='r', capsize=5)
         elif plot_type == "Step Plot":
@@ -182,13 +180,13 @@ def get_response(user_input,prev_messages,db,schema):
             ax.quiver(range(len(y_data)), y_data, range(len(y_data)), y_data)
         else:
             st.error(f"Visualization type '{plot_type}' is not supported.")
-        
+
         # Add labels and title
         ax.set_xlabel(data_dict_obj["xAxis_label"])
         ax.set_ylabel(data_dict_obj["yAxis_label"])
         ax.set_title(f'{plot_type} Visualization')
         ax.grid(True)
-        
+
         # Show the plot in Streamlit
         # st.pyplot(fig)
         # st.markdown("--function_end--")
