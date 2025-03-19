@@ -2,29 +2,10 @@
 import streamlit as st
 def get_openai_response(prompt):
     from openai import OpenAI
-    # try:
-    #     client = OpenAI(
-    #       api_key = st.secrets["openAi_API_Key_visual"],
-    #       BaseURL = st.secrets["BaseURL"],
-    #       )
-        
-        
-    #     completion = client.chat.completions.create(
-    #       model="Meta-Llama-3.3-70B-Instruct-Turbo",
-    #     #   model = "gpt-4o",
-    #       messages=[
-    #         {"role": "developer", "content": "SQL Developer and a data analyst"},
-    #         {"role": "user", "content": prompt}
-    #       ]
-    #     )
-        
-    #     return completion.choices[0].message.content
-    # except:
-    #     return "Too Frequent Submissions, Please try again in 60 seconds."
-    if 1:
+    try:
         client = OpenAI(
           api_key = st.secrets["openAi_API_Key_visual"],
-          BaseURL = st.secrets["BaseURL"],
+          base_url = st.secrets["BaseURL"],
           )
         
         
@@ -38,6 +19,9 @@ def get_openai_response(prompt):
         )
         
         return completion.choices[0].message.content
+    except:
+        return "Too Frequent Submissions, Please try again in 60 seconds."
+    
     
     
     
