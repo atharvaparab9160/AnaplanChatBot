@@ -56,15 +56,14 @@ def get_response(user_input, prev_messages, db, schema):
     """
 
     sql_query = get_openai_response(prompt)
-    if sql_query == "Try after 1 min":
-        st.write("exception!!")
-        return "Try after 1 min"
+    
+    if sql_query == "Limit Ended":
+        return "Limit Ended"
     elif sql_query == "False":
         return "Not Possible"
-    st.write(sql_query)
+        
     text_table_data = db.run(sql_query)
-    # st.write(text_table_data)
-    st.write(text_table_data)
+
 
     graph_prompt = f'''
     Role : You are a data analyst in a company.
@@ -103,18 +102,14 @@ def get_response(user_input, prev_messages, db, schema):
 
     # import ast
     text_dict = get_openai_response(graph_prompt)
-    st.write(text_dict)
+    
     if text_dict == "Limit Ended":
         return "Limit Ended"
 
-    # st.write("----------------------------")
-    # st.write(text_dict)
     # Convert string to dictionary
     import json
-
     data_dict_obj = json.loads(text_dict)
-    # print(data_dict_obj)
-    # print(data_dict_obj)
+
 
     import pandas as pd
     import matplotlib.pyplot as plt
@@ -189,7 +184,6 @@ def get_response(user_input, prev_messages, db, schema):
 
         # Show the plot in Streamlit
         # st.pyplot(fig)
-        # st.markdown("--function_end--")
         return fig
     return "Not Possible"
 
