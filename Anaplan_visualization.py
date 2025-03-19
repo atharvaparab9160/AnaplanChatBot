@@ -1,7 +1,7 @@
 def get_openai_response(prompt):
     from openai import OpenAI
     import streamlit as st
-    if 1:
+    try:
         client = OpenAI(
           api_key = st.secrets["openAi_API_Key_visual"],
           base_url = st.secrets["BaseURL"]
@@ -16,8 +16,8 @@ def get_openai_response(prompt):
         )
 
         return completion.choices[0].message.content
-    # except:
-    #     return "Limit Ended"
+    except:
+        return "Limit Ended"
     
     
     
@@ -39,7 +39,7 @@ def get_response(user_input, prev_messages, db, schema):
     Instructions:
     - if visualization for this quesy is not possible then print just False
     - Generate only the SQL query based on the schema.
-    - dont just use the quesry 'SELECT * FROM car_sales;' use an optimized SQL query that selects only necessary columns, limits rows, filters with WHERE, aggregates data, removes duplicates, paginates with LIMIT OFFSET, truncates large text, applies compression, and ensures indexed filtering for efficiency. 
+    - dont just use the query 'SELECT * FROM car_sales;' use an optimized SQL query that always limits rows to requi (most important), selects only necessary columns, filters with WHERE, aggregates data, removes duplicates, paginates with LIMIT OFFSET, truncates large text, applies compression, and ensures indexed filtering for efficiency. 
     - If the user asks for a graph, chart, or visualization, ignore the request and return only an SQL query that retrieves relevant data.
     - Do NOT include explanations, descriptions, or formatting.
     - Do NOT mention graphs, charts, or any kind of visualization.
