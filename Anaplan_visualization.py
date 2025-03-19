@@ -60,9 +60,9 @@ def get_response(user_input,prev_messages,db,schema):
     """
 
     sql_query = get_openai_response(prompt)
-    if sql_query == "Try after 1 min":
+    if sql_query == "Too Frequent Submissions, Please try again in 60 seconds.":
         # st.write("exception!!")
-        return ""Too Frequent Submissions, Please try again in 60 seconds.""
+        return "Too Frequent Submissions, Please try again in 60 seconds."
     print(sql_query)
     text_table_data = db.run(sql_query)
     # st.write(text_table_data)
