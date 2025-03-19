@@ -77,7 +77,7 @@ def invoke_chain(question,messages):
         response = chain.invoke({"question": question,"top_k":3,"messages":history.messages})
         history.add_user_message(question)
         history.add_ai_message(response)
-    #     return response
+        return response
     # except:
     #     return "You have reached your daily limit. Please try again tomorrow."       
     
