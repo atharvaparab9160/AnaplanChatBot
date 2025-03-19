@@ -1,6 +1,6 @@
 def get_openai_response(prompt):
     from openai import OpenAI
-    try:
+    if 1:
         client = OpenAI(
           api_key = st.secrets["openAi_API_Key_visual"],
           base_url = st.secrets["BaseURL"]
@@ -16,8 +16,8 @@ def get_openai_response(prompt):
         )
 
         return completion.choices[0].message.content
-    except:
-        return "Limit Ended"
+    # except:
+    #     return "Limit Ended"
     
     
     
