@@ -62,15 +62,24 @@ def create_history(messages):
     return history
 
 def invoke_chain(question,messages):
-    try:
+    # try:
+    #     chain = get_chain()
+    #     history = create_history(messages)
+    #     response = chain.invoke({"question": question,"top_k":3,"messages":history.messages})
+    #     history.add_user_message(question)
+    #     history.add_ai_message(response)
+    #     return response
+    # except:
+    #     return "You have reached your daily limit. Please try again tomorrow."  
+    if 1:
         chain = get_chain()
         history = create_history(messages)
         response = chain.invoke({"question": question,"top_k":3,"messages":history.messages})
         history.add_user_message(question)
         history.add_ai_message(response)
-        return response
-    except:
-        return "You have reached your daily limit. Please try again tomorrow."   
+    #     return response
+    # except:
+    #     return "You have reached your daily limit. Please try again tomorrow."       
     
 
 
