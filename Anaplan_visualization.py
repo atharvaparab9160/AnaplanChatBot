@@ -20,7 +20,7 @@ def get_openai_response(prompt):
         
         return completion.choices[0].message.content
     except:
-        return "Too Frequent Submissions, Please try again in 60 seconds."
+        return "Limit Ended"
     
     
     
@@ -44,8 +44,9 @@ def get_response(user_input,prev_messages,db,schema):
     
     
     Instructions:
+    - if visualization for this quesy is not possible then print just False
     - Generate only the SQL query based on the schema.
-    -we want small output from the sql so try getting presize and less amount pf data so write query accordingly 
+    - dont just use the quesry 'SELECT * FROM car_sales;' use an optimized SQL query that selects only necessary columns, limits rows, filters with WHERE, aggregates data, removes duplicates, paginates with LIMIT OFFSET, truncates large text, applies compression, and ensures indexed filtering for efficiency. 
     - If the user asks for a graph, chart, or visualization, ignore the request and return only an SQL query that retrieves relevant data.
     - Do NOT include explanations, descriptions, or formatting.
     - Do NOT mention graphs, charts, or any kind of visualization.
@@ -57,22 +58,25 @@ def get_response(user_input,prev_messages,db,schema):
     
     User Query: "Give graph for sales distribution"
     Output: SELECT Month, Sales FROM SalesTable;
-    
+    if visualization for this quesy is not possible then print just False
     Now, generate the SQL query for the given user input.
     """
 
     sql_query = get_openai_response(prompt)
-    if sql_query == "Too Frequent Submissions, Please try again in 60 seconds.":
-        # st.write("exception!!")
-        return "Too Frequent Submissions, Please try again in 60 seconds."
-    print(sql_query)
+    if sql_query == "Try after 1 min":
+        st.write("exception!!")
+        return "Try after 1 min"
+    elif sql_query == "False":
+        return "Not Possible"
+    st.write(sql_query)
     text_table_data = db.run(sql_query)
     # st.write(text_table_data)
+    st.write(text_table_data)
 
     graph_prompt = f'''
     Role : You are a data analyst in a company.
     Task: I will provide an SQL data table along with a user query. Based on the data, generate a structured dictionary output in the specified format (output should not have anything exept that output in text format).
-    User Query: {user_input}
+    User input: {user_input}
     sql query :{sql_query}
     SQL Query Output (Table Format):
     {text_table_data}
@@ -83,7 +87,7 @@ def get_response(user_input,prev_messages,db,schema):
     - Define x-axis and y-axis labels.
     - Include a Boolean field (`possible`) indicating whether a meaningful visualization can be generated or it should be numeeric 1 or 0.
     - length of both arrays in data should be equal and data whould have exactly 2 arrays (neither less nor more) so we can make graph simple
-    
+    - If visualization of the User query is not possible then set "possible" as 0.
     Example Output Format:
     {{
         "data": {{
@@ -101,14 +105,17 @@ def get_response(user_input,prev_messages,db,schema):
     Output Rules:
     - Return only the dictionary as plain text (no additional explanations or formatting).
     - Ensure the `visualization` field is a string format.
-    - If visualization is not possible, set "possible": 0.
+    
     '''
 
 
 
+    # import ast
     text_dict = get_openai_response(graph_prompt)
-    if text_dict == "Too Frequent Submissions, Please try again in 60 seconds.":
-        return "Too Frequent Submissions, Please try again in 60 seconds."
+    st.write(text_dict)
+    if text_dict == "Limit Ended":
+        return "Limit Ended"
+    
     # st.write("----------------------------")
     # st.write(text_dict)
     # Convert string to dictionary
@@ -190,7 +197,7 @@ def get_response(user_input,prev_messages,db,schema):
         # st.pyplot(fig)
         # st.markdown("--function_end--")
         return fig
-    return "please try again"
+    return "Not Possible"
 
 
     
@@ -253,8 +260,10 @@ def app():
         with st.spinner("Generating response..."):
             with st.chat_message("assistant"):
                 response = get_response(prompt,st.session_state.messages,db,schema)
-                if response == "Too Frequent Submissions, Please try again in 60 seconds.":
-                    st.markdown("Too Frequent Submissions, Please try again in 60 seconds.")
+                if response == "Limit Ended":
+                    st.markdown("Too Frequent Submissions, Try again after 60 sec")
+                elif response == "Not Possible":
+                    st.markdown("Visalization of your Request is not possible ,So please try again")
                 else:    
                     # st.write("----------------")
                     st.pyplot(response)
