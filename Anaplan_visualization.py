@@ -1,4 +1,3 @@
-
 import streamlit as st
 def get_openai_response(prompt):
     from openai import OpenAI
