@@ -2,28 +2,9 @@
 import streamlit as st
 def get_openai_response(prompt):
     from openai import OpenAI
-    # try:
-    #     client = OpenAI(
-    #       OPENAI_API_KEY = st.secrets["openAi_API_Key_visual"],
-    #       BaseURL = st.secrets["BaseURL"],
-    #       )
-        
-        
-    #     completion = client.chat.completions.create(
-    #       model="Meta-Llama-3.3-70B-Instruct-Turbo",
-    #     #   model = "gpt-4o",
-    #       messages=[
-    #         {"role": "developer", "content": "SQL Developer and a data analyst"},
-    #         {"role": "user", "content": prompt}
-    #       ]
-    #     )
-        
-    #     return completion.choices[0].message.content
-    # except:
-    #     return "Try after 1 min"
-    if 1:
+    try:
         client = OpenAI(
-          OPENAI_API_KEY = st.secrets["openAi_API_Key_visual"],
+          api_key = st.secrets["openAi_API_Key_visual"],
           BaseURL = st.secrets["BaseURL"],
           )
         
@@ -38,6 +19,9 @@ def get_openai_response(prompt):
         )
         
         return completion.choices[0].message.content
+    except:
+        return "Try after 1 min"
+    
     
     
     
@@ -77,8 +61,8 @@ def get_response(user_input,prev_messages,db,schema):
 
     sql_query = get_openai_response(prompt)
     if sql_query == "Try after 1 min":
-        st.write("exception!!")
-        return "Try after 1 min"
+        # st.write("exception!!")
+        return ""Too Frequent Submissions, Please try again in 60 seconds.""
     print(sql_query)
     text_table_data = db.run(sql_query)
     # st.write(text_table_data)
@@ -121,8 +105,8 @@ def get_response(user_input,prev_messages,db,schema):
 
 
     text_dict = get_openai_response(graph_prompt)
-    if text_dict == "Try after 1 min":
-        return "Try after 1 min"
+    if text_dict == ""Too Frequent Submissions, Please try again in 60 seconds."":
+        return ""Too Frequent Submissions, Please try again in 60 seconds.""
     # st.write("----------------------------")
     # st.write(text_dict)
     # Convert string to dictionary
@@ -267,8 +251,8 @@ def app():
         with st.spinner("Generating response..."):
             with st.chat_message("assistant"):
                 response = get_response(prompt,st.session_state.messages,db,schema)
-                if response == "Try after 1 min":
-                    st.markdown("Too Frequent Submissions, Try again after 60 sec")
+                if response == "Too Frequent Submissions, Please try again in 60 seconds.":
+                    st.markdown("Too Frequent Submissions, Please try again in 60 seconds.")
                 else:    
                     # st.write("----------------")
                     st.pyplot(response)
