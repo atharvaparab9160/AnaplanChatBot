@@ -1,24 +1,22 @@
-import streamlit as st
 def get_openai_response(prompt):
     from openai import OpenAI
     try:
-      client = OpenAI(
-          api_key = st.secrets["openAi_API_Key_visual"],
-          base_url = st.secrets["BaseURL"]
-          )
-        
-        
-      completion = client.chat.completions.create(
-          model="Meta-Llama-3.3-70B-Instruct-Turbo",
-          messages=[
-            {"role": "developer", "content": "SQL Developer and a data analyst"},
-            {"role": "user", "content": prompt}
-          ]
+        client = OpenAI(
+            api_key=st.secrets["openAi_API_Key_visual"],
+            base_url=st.secrets["BaseURL"]
         )
-        
-      return completion.choices[0].message.content
+
+        completion = client.chat.completions.create(
+            model="Meta-Llama-3.3-70B-Instruct-Turbo",
+            messages=[
+                {"role": "developer", "content": "SQL Developer and a data analyst"},
+                {"role": "user", "content": prompt}
+            ]
+        )
+
+        return completion.choices[0].message.content
     except:
-      return "Limit Ended"
+        return "Limit Ended"
     
     
     
