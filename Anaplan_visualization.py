@@ -20,7 +20,7 @@ def get_openai_response(prompt):
         
         return completion.choices[0].message.content
     except:
-        return "Try after 1 min"
+        return "Too Frequent Submissions, Please try again in 60 seconds."
     
     
     
@@ -105,8 +105,8 @@ def get_response(user_input,prev_messages,db,schema):
 
 
     text_dict = get_openai_response(graph_prompt)
-    if text_dict == ""Too Frequent Submissions, Please try again in 60 seconds."":
-        return ""Too Frequent Submissions, Please try again in 60 seconds.""
+    if text_dict == "Too Frequent Submissions, Please try again in 60 seconds.":
+        return "Too Frequent Submissions, Please try again in 60 seconds."
     # st.write("----------------------------")
     # st.write(text_dict)
     # Convert string to dictionary
