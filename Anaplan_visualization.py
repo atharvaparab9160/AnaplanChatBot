@@ -2,7 +2,26 @@
 import streamlit as st
 def get_openai_response(prompt):
     from openai import OpenAI
-    try:
+    # try:
+    #     client = OpenAI(
+    #       OPENAI_API_KEY = st.secrets["openAi_API_Key_visual"],
+    #       BaseURL = st.secrets["BaseURL"],
+    #       )
+        
+        
+    #     completion = client.chat.completions.create(
+    #       model="Meta-Llama-3.3-70B-Instruct-Turbo",
+    #     #   model = "gpt-4o",
+    #       messages=[
+    #         {"role": "developer", "content": "SQL Developer and a data analyst"},
+    #         {"role": "user", "content": prompt}
+    #       ]
+    #     )
+        
+    #     return completion.choices[0].message.content
+    # except:
+    #     return "Try after 1 min"
+    if 1:
         client = OpenAI(
           OPENAI_API_KEY = st.secrets["openAi_API_Key_visual"],
           BaseURL = st.secrets["BaseURL"],
@@ -19,8 +38,7 @@ def get_openai_response(prompt):
         )
         
         return completion.choices[0].message.content
-    except:
-        return "Try after 1 min"
+    
     
     
     
