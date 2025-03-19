@@ -1,6 +1,7 @@
 def get_openai_response(prompt):
     from openai import OpenAI
-    if 1:
+    import streamlit as st
+    try:
         client = OpenAI(
           api_key = st.secrets["openAi_API_Key_visual"],
           base_url = st.secrets["BaseURL"]
@@ -8,7 +9,6 @@ def get_openai_response(prompt):
 
         completion = client.chat.completions.create(
             model="Meta-Llama-3.3-70B-Instruct-Turbo",
-            #   model = "gpt-4o",
             messages=[
                 {"role": "developer", "content": "SQL Developer and a data analyst"},
                 {"role": "user", "content": prompt}
@@ -16,8 +16,8 @@ def get_openai_response(prompt):
         )
 
         return completion.choices[0].message.content
-    # except:
-    #     return "Limit Ended"
+    except:
+        return "Limit Ended"
     
     
     
