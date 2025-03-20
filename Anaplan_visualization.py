@@ -39,7 +39,7 @@ def get_response(user_input, prev_messages, db, schema):
     Instructions:
     - if visualization for this quesy is not possible then print just False
     - Generate only the SQL query based on the schema.
-    - dont just use the query 'SELECT * FROM car_sales;' use an optimized SQL query that always limits rows to requi (most important), selects only necessary columns, filters with WHERE, aggregates data, removes duplicates, paginates with LIMIT OFFSET, truncates large text, applies compression, and ensures indexed filtering for efficiency. 
+    - dont just use the query 'SELECT * FROM car_sales;' use an optimized SQL query that always limits rows or do random sampling so that the output of the query table will be less (most important), selects only necessary columns, filters with WHERE, aggregates data, removes duplicates, paginates with LIMIT OFFSET, truncates large text, applies compression, and ensures indexed filtering for efficiency. 
     - If the user asks for a graph, chart, or visualization, ignore the request and return only an SQL query that retrieves relevant data.
     - Do NOT include explanations, descriptions, or formatting.
     - Do NOT mention graphs, charts, or any kind of visualization.
