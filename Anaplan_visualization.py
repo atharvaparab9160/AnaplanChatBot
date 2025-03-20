@@ -1,7 +1,7 @@
 def get_openai_response(prompt):
     from openai import OpenAI
     import streamlit as st
-    try:
+    if 1:
         client = OpenAI(
           api_key = st.secrets["openAi_API_Key_visual"],
           base_url = st.secrets["BaseURL"]
@@ -16,8 +16,8 @@ def get_openai_response(prompt):
         )
 
         return completion.choices[0].message.content
-    except:
-        return "Limit Ended"
+    # except:
+    #     return "Limit Ended"
     
     
     
@@ -250,10 +250,13 @@ def app():
                 response = get_response(prompt,st.session_state.messages,db,schema)
                 if response == "Limit Ended":
                     st.markdown("Too Frequent Submissions, Try again after 60 sec")
+                    st.session_state.messages.append({"role": "assistant", "content": "Too Frequent Submissions, Try again after 60 sec"})
                 elif response == "Not Possible":
                     st.markdown("Visalization of your Request is not possible ,So please try again")
+                    st.session_state.messages.append({"role": "assistant", "content": "Visalization of your Request is not possible ,So please try again"})
                 else:    
                     # st.write("----------------")
                     st.pyplot(response)
+                    st.session_state.messages.append({"role": "assistant", "content": response})
         # st.write(response)        
-        st.session_state.messages.append({"role": "assistant", "content": response})
+       
