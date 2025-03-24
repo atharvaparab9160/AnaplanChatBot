@@ -56,7 +56,7 @@ def get_response(user_input, prev_messages, db, schema):
     """
 
     sql_query = get_openai_response(prompt)
-    # st.write(sql_query)
+    st.write(sql_query)
     
     if sql_query == "Limit Ended":
         return "Limit Ended"
