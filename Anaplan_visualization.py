@@ -253,8 +253,8 @@ def app():
                     st.markdown("Too Frequent Submissions, Try again after 60 sec")
                     st.session_state.messages.append({"role": "assistant", "content": "Too Frequent Submissions, Try again after 60 sec"})
                 elif response == "Not Possible":
-                    st.markdown("Visalization of your Request is not possible ,So please try again")
-                    st.session_state.messages.append({"role": "assistant", "content": "Visalization of your Request is not possible ,So please try again"})
+                    st.markdown("Visualization of your Request is not possible ,So please try again")
+                    st.session_state.messages.append({"role": "assistant", "content": "Visualization of your Request is not possible ,So please try again"})
                 else:    
                     # st.write("----------------")
                     st.pyplot(response)
