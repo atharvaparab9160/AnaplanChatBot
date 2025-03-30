@@ -1,2 +1,2 @@
 Table,Description
-car_sales,"Stores information about cars available for sale, including brand, model, price, body type, mileage, engine specifications, registration status, and manufacturing year. Each car entry has a unique ID and key details about its condition and features."
+FoodSalesExport,"Stores weekly safety stock data for different food products across multiple financial periods (FY20 and FY21). It includes stock levels for the first half (H1) and second half (H2) of each financial year, along with total annual stock. The data helps in inventory management and forecasting."
