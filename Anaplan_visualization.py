@@ -64,6 +64,7 @@ def get_response(user_input, prev_messages, db, schema):
         return "Not Possible"
         
     text_table_data = db.run(sql_query)
+    st.write(text_table_data)
 
 
     graph_prompt = f'''
