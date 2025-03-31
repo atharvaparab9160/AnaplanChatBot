@@ -26,7 +26,7 @@ def get_openai_response(prompt):
     
 def get_response(user_input, prev_messages, db, schema):
     import streamlit as st
-    st.write(schema)
+    # st.write(schema)
     prompt = f"""
     You are an AI assistant that converts user queries into SQL queries based on the given database schema.
     
@@ -64,7 +64,7 @@ def get_response(user_input, prev_messages, db, schema):
         return "Not Possible"
         
     text_table_data = db.run(sql_query)
-    st.write(text_table_data)
+    # st.write(text_table_data)
 
 
     graph_prompt = f'''
