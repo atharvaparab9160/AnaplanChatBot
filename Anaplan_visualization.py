@@ -26,7 +26,7 @@ def get_openai_response(prompt):
     
 def get_response(user_input, prev_messages, db, schema):
     import streamlit as st
-
+    st.write(schema)
     prompt = f"""
     You are an AI assistant that converts user queries into SQL queries based on the given database schema.
     
