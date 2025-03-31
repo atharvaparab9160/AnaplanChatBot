@@ -38,7 +38,7 @@ def get_response(user_input, prev_messages, db, schema):
     
     Instructions:
     - if visualization for this query is not possible then print just False
-    - Generate only the SQL query based on the schema with exact names of column in the table if there is a space(" ") in name of column dont add a underscore (_) in between and use quotes (" ").
+    - Generate only the SQL query based on the schema with exact names of column in the table If a column name contains spaces or special characters (e.g., H1 FY21), enclose it in backticks (``) in SQL queries instead of replacing spaces with underscores..
     - dont just use the query 'SELECT * FROM car_sales;' use an optimized SQL query that always limits rows or do random sampling so that the output of the query table will be less (most important), selects only necessary columns, filters with WHERE, aggregates data, removes duplicates, paginates with LIMIT OFFSET, truncates large text, applies compression, and ensures indexed filtering for efficiency. 
     - If the user asks for a graph, chart, or visualization, ignore the request and return only an SQL query that retrieves relevant data.
     - Do NOT include explanations, descriptions, or formatting.
